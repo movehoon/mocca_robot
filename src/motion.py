@@ -166,10 +166,10 @@ class MoccaMotion():
             rospy.logerr(str(e))
 
 
-        rospy.loginfo('done')
         # rospy.loginfo(joint_state)
         # rate.sleep()
         self.server.set_succeeded(self._result)
+        rospy.loginfo('done')
 
 
 if __name__ == '__main__':
