@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="mocca">
   <xacro:property name="obj_scale" value="0.001 0.001 0.001" />
-  <xacro:property name="pkg_path" value='$(find mocca_description)' />
+  <xacro:property name="pkg_path" value='$(find mocca_robot)' />
 
 
   <xacro:property name="convert_command" value='xacro --inorder mocca.xacro > mocca.urdf' />

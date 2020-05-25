@@ -66,12 +66,12 @@ class MoccaMotion():
         self.pubAngles = rospy.Publisher('mocca_robot_goal_angle', Float32MultiArray, queue_size=10)
         self.pubPose = rospy.Publisher('mocca_robot_goal_pose', Float32MultiArray, queue_size=10)
 
-        rospy.loginfo("Mocca motion ready");
+        rospy.loginfo("Mocca motion ready")
 
 
 
     def execute(self, goal):
-        rospy.loginfo("execute %s", str(goal));
+        rospy.loginfo("execute %s", str(goal))
         finished = False
         # feedback = MoccaMotionFeedback
         # result = MoccaMotionResult
@@ -128,7 +128,7 @@ class MoccaMotion():
                     pose_target = motion.frames[frame_index].pose
                     # rospy.loginfo('frame_index: %d, pose: %s', frame_index, pose_target.angles)
 
-                    pub_msg = Float32MultiArray();
+                    pub_msg = Float32MultiArray()
                     pub_msg.layout = MultiArrayLayout()
                     pub_msg.layout.data_offset = int(motion.frames[frame_index].eta * 1000)
                     pub_msg.data = pose_target.angles

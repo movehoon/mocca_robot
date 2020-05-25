@@ -94,7 +94,7 @@ class MoccaRobot(Thread):
     def torqueAll(self, enable):
         # rospy.loginfo("dxlTorqueAll: %d", enable.data)
         for id in self.DXL_ID:
-            self.dxlTorque(id, enable.data);
+            self.dxlTorque(id, enable.data)
 
     def dxlTorque(self, dxl_id, enable):
         # Enable Dynamixel Torque
@@ -153,7 +153,7 @@ class MoccaRobot(Thread):
             dxl_addparam_result = self.groupSyncWriteMovingSpeed.addParam(self.DXL_ID[i], param_sync_write)
             if dxl_addparam_result != True:
                 rospy.logerr('[ID%d] gruptSyncWrite addparam failed', self.DXL_ID[i])
-                break;
+                break
         dxl_comm_result = self.groupSyncWriteMovingSpeed.txPacket()
         if dxl_comm_result != COMM_SUCCESS:
             rospy.logerr('[dxlMovingSpeed] %s', self.packetHandler.getTxRxResult(dxl_comm_result))
@@ -170,7 +170,10 @@ class MoccaRobot(Thread):
             targetAngle = pose.data[i]
             presentAngle = self.dxlPosToDeg(self.presentPosition[i])
             moveToAngle = math.fabs(targetAngle - presentAngle)
-            self.movingSpeed[i] = int(moveToAngle * eta * 60 / 30)
+            if eta is not 0:
+                self.movingSpeed[i] = int(moveToAngle / eta * 60 / 60)
+            else:
+                self.movingSpeed[i] = 0
             # rospy.loginfo("[%d]%f %f = %f => (%d)", i, targetAngle, presentAngle, moveToAngle, self.movingSpeed[i])
 
         self.dxlMovingSpeed(self.movingSpeed)
@@ -228,7 +231,7 @@ class MoccaRobot(Thread):
 
         Thread.__init__(self)
 
-        rospy.loginfo("Mocca robot initialized");
+        rospy.loginfo("Mocca robot initialized")
 
     def run(self):
         rospy.loginfo('run')
@@ -254,7 +257,7 @@ if __name__ == '__main__':
     try:
         rospy.init_node('mocca_robot')
         pub = rospy.Publisher('mocca_robot_present_pose', Float32MultiArray, queue_size=10)
-        pub_msg = Float32MultiArray();
+        pub_msg = Float32MultiArray()
         server = MoccaRobot()
         server.start()
         while not rospy.is_shutdown():

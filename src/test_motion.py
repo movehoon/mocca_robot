@@ -3,6 +3,7 @@
 import rospy
 import actionlib
 from mocca_motion_renderrer.msg import MoccaMotionAction, MoccaMotionGoal
+import rospkg
 
 def mocca_motion_client():
     # Creates the SimpleActionClient, passing the type of the action
@@ -14,7 +15,8 @@ def mocca_motion_client():
     client.wait_for_server()
 
     # Creates a goal to send to the action server.
-    with open('/home/parallels/OK.json') as json_file:
+    rospack = rospkg.RosPack()
+    with open(rospack.get_path('mocca_robot') + '/motions/test_motion.json') as json_file:
         goal = MoccaMotionGoal(motion_data=json_file.read())
         rospy.loginfo('goal:%s', goal.motion_data)
 
