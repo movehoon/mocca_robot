@@ -6,6 +6,7 @@ from mocca_motion_renderrer.msg import MoccaMotionAction, MoccaMotionGoal
 import paho.mqtt.client as mqtt
 
 def mocca_motion_client(motion_string):
+    # rospy.loginfo('mocca_motion_client:' + motion_string)
     # Creates the SimpleActionClient, passing the type of the action
     # (FibonacciAction) to the constructor.
     client = actionlib.SimpleActionClient('/mocca_motion', MoccaMotionAction)
@@ -16,13 +17,15 @@ def mocca_motion_client(motion_string):
 
     # Creates a goal to send to the action server.
     goal = MoccaMotionGoal(motion_data=motion_string)
-    rospy.loginfo('goal:', goal.motion_data)
+    rospy.loginfo('goal:' + goal.motion_data)
 
     # Sends the goal to the action server.
     client.send_goal(goal)
 
     # Waits for the server to finish performing the action.
     client.wait_for_result()
+
+    rospy.loginfo('Done with the result: ' + str(client.get_result()))
 
     # Prints out the result of executing the action
     return client.get_result()  # A FibonacciResult
@@ -38,12 +41,12 @@ def on_connect(client, userdata, flags, rc):
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     rospy.loginfo(msg.topic+" "+str(msg.payload))
-    result = mocca_motion_client(msg.payload)
+    result = mocca_motion_client(str(msg.payload))
     rospy.loginfo("Result:", ', '.join([str(n) for n in result.sequence]))
 
 if __name__ == '__main__':
     try:
-        rospy.init_node('mocca_motion_client')
+        rospy.init_node('mocca_motion_client_mqtt')
 
         mqttClient = mqtt.Client()
         mqttClient.on_connect = on_connect
