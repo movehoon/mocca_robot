@@ -5,7 +5,7 @@ import rospy
 import actionlib
 from sensor_msgs.msg import JointState
 # from control_msgs.msg import FollowJointTrajectoryAction, FollowJointTrajectoryFeedback, FollowJointTrajectoryResult
-from mocca_motion_renderrer.msg import MoccaMotionAction, MoccaMotionFeedback, MoccaMotionResult
+from mocca_robot.msg import MoccaMotionAction, MoccaMotionFeedback, MoccaMotionResult
 from std_msgs.msg import Float32MultiArray, Int8, Int16MultiArray, MultiArrayLayout
 import json
 import time

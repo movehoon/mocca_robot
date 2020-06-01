@@ -2,7 +2,7 @@
 
 import rospy
 import actionlib
-from mocca_motion_renderrer.msg import MoccaMotionAction, MoccaMotionGoal
+from mocca_robot.msg import MoccaMotionAction, MoccaMotionGoal
 import paho.mqtt.client as mqtt
 
 def mocca_motion_client(motion_string):
