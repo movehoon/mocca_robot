@@ -5,8 +5,8 @@ import rospy
 import actionlib
 from sensor_msgs.msg import JointState
 # from control_msgs.msg import FollowJointTrajectoryAction, FollowJointTrajectoryFeedback, FollowJointTrajectoryResult
-from mocca_robot.msg import MoccaMotionAction, MoccaMotionFeedback, MoccaMotionResult
-from std_msgs.msg import Float32MultiArray, Int8, Int16MultiArray, MultiArrayLayout
+from mocca_robot.msg import MoccaMotionAction, MoccaMotionFeedback, MoccaMotionResult, MoccaMotionGoal
+from std_msgs.msg import Float32MultiArray, Int8, Int16MultiArray, MultiArrayLayout, String
 import json
 import time
 import math
@@ -67,7 +67,6 @@ class MoccaMotion():
         self.pubPose = rospy.Publisher('mocca_robot_goal_pose', Float32MultiArray, queue_size=10)
 
         rospy.loginfo("Mocca motion ready")
-
 
 
     def execute(self, goal):
