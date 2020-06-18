@@ -10,6 +10,7 @@ sudo python setup.py install
 - Grant tty access to user
 ```
 sudo usermod -aG dialout $USER
+sudo reboot now
 ```
 
 - PAHO-MQTT: This project require mqtt client for getting motion command
