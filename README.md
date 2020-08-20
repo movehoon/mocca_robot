@@ -23,8 +23,8 @@
 ## Software
 
 ### Install Ubuntu
+- [Ubuntu-Mate](https://ubuntu-mate.org/download/armhf/bionic/) for Raspberry Pi
 - [Ubuntu18.04](https://releases.ubuntu.com/18.04/) for general PC
-- [Ubuntu-Mate](https://ubuntu-mate.org/ports/raspberry-pi/) for Raspberry Pi
 
 ### [Install ROS](http://wiki.ros.org/melodic/Installation/Ubuntu) (Recommended melodic)
 
