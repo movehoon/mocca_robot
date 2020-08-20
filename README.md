@@ -37,6 +37,11 @@ sudo reboot now
 pip install paho-mqtt
 ```
 
+### Install Required ROS library
+```
+sudo apt install ros-melodic-rosbridge-server
+```
+
 ## Build
 - Download project
 ```
