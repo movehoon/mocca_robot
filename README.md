@@ -9,8 +9,14 @@
 
 ### Motor
 - Mobile: Robotis [XL430-W250-T](https://www.robotis.com/shop/item.php?it_id=902-0135-000) (2pcs)
+Speed: 1Mbps
+ID1: Right Wheel
+ID2: Left Wheel
 - Motion: Robotis [AX-12A](https://www.robotis.com/shop/item.php?it_id=902-0003-001) (8pcs)
-
+Speed: 1Mbps
+ID11, 12, 13: Left Arm
+ID21, 22, 23: Right Arm
+ID21, 32: Neck
 
 ## Software
 
@@ -68,5 +74,5 @@ roslaunch mocca_robot bringup.launch
 
 ## Test motion
 ```
-roslaunch mocca_robot test_motion.py
+rosrun mocca_robot test_motion.py
 ```
