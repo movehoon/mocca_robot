@@ -13,9 +13,14 @@
 
 
 ## Software
-- [Install ROS](http://wiki.ros.org/melodic/Installation/Ubuntu) (Recommended melodic on Ubuntu 18.04)
 
-- [DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK)
+### Install Ubuntu
+- [Ubuntu18.04](https://releases.ubuntu.com/18.04/) for general PC
+- [Ubuntu-Mate](https://ubuntu-mate.org/ports/raspberry-pi/) for Raspberry Pi
+
+### [Install ROS](http://wiki.ros.org/melodic/Installation/Ubuntu) (Recommended melodic)
+
+### [DynamixelSDK](https://github.com/ROBOTIS-GIT/DynamixelSDK)
 ```
 git clone https://github.com/ROBOTIS-GIT/DynamixelSDK.git
 cd DynamixelSDK/python
@@ -27,7 +32,7 @@ sudo usermod -aG dialout $USER
 sudo reboot now
 ```
 
-- PAHO-MQTT: This project require mqtt client for getting command
+### PAHO-MQTT: This project require mqtt client for getting command
 ```
 pip install paho-mqtt
 ```
