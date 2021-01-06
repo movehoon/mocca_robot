@@ -59,7 +59,7 @@ class MoccaMotion():
         self.server = actionlib.SimpleActionServer(
             '/mocca_motion',
             MoccaMotionAction,
-            self.execute,
+            self.execute_cb,
             False)
         self.server.start()
 
@@ -68,20 +68,14 @@ class MoccaMotion():
 
         rospy.loginfo("Mocca motion ready")
 
-
-    def execute(self, goal):
-        rospy.loginfo("execute %s", str(goal))
-        finished = False
+    def execute_cb(self, goal):
+        # rospy.loginfo("execute %s", str(goal))
         # feedback = MoccaMotionFeedback
         # result = MoccaMotionResult
         joint_pub = rospy.Publisher('/joint_states', JointState, queue_size=10)
         joint_state = JointState()
 
         rate = rospy.Rate(30) # 30hz
-
-        # self.motion = json_string
-
-        # print(goal)
 
         try:
             rospy.loginfo("execute goal: %s", goal.motion_data)
@@ -111,8 +105,13 @@ class MoccaMotion():
             pub_msg.data = pose_target.angles
             self.pubPose.publish(pub_msg)
 
-
             while frame_index < frame_total:
+                if self.server.is_preempt_requested():
+                    rospy.loginfo('Preempted')
+                    # self.server.set_preempted()
+                    success = False
+                    break
+
                 # rospy.loginfo('fram_id: %d, total: %d', frame_index, frame_total)
                 going_time = time.time() - start_time
                 frame_going_time = time.time() - frame_start_time
@@ -132,7 +131,7 @@ class MoccaMotion():
                     pub_msg.layout.data_offset = int(motion.frames[frame_index].eta * 1000)
                     pub_msg.data = pose_target.angles
                     self.pubPose.publish(pub_msg)
-                    rospy.loginfo('Publish %s', str(pub_msg))
+                    # rospy.loginfo('Publish %s', str(pub_msg))
 
                     # for i in range(len(pose_target.angles)):
                     #     pos = self.dxlDegToPos(pose_target.angles[i], self.DXL_DR[i])
@@ -158,7 +157,12 @@ class MoccaMotion():
                 self._feedback.processing = going_time / total_time
                 self.server.publish_feedback(self._feedback)
                 rate.sleep()
-            self._result.success = True
+
+            if frame_index < frame_total:
+                self._result.success = False
+            else:
+                self._result.success = True
+
             rospy.loginfo('success')
         except Exception as e:
             self._result.success = False
@@ -169,7 +173,6 @@ class MoccaMotion():
         # rate.sleep()
         self.server.set_succeeded(self._result)
         rospy.loginfo('done')
-
 
 if __name__ == '__main__':
     try:

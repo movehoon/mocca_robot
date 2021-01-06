@@ -9,7 +9,6 @@ import rospkg
 import os
 import json
 import sys
-import importlib
 
 rospack = rospkg.RosPack()
 
@@ -23,6 +22,8 @@ def mocca_motion_client(motion_string):
     # listening for goals.
     client.wait_for_server()
 
+    client.cancel_all_goals()
+
     # Creates a goal to send to the action server.
     goal = MoccaMotionGoal(motion_data=motion_string)
     rospy.loginfo('goal:' + goal.motion_data)
@@ -31,7 +32,7 @@ def mocca_motion_client(motion_string):
     client.send_goal(goal)
 
     # Waits for the server to finish performing the action.
-    client.wait_for_result()
+    # client.wait_for_result()
 
     rospy.loginfo('Done with the result: ' + str(client.get_result()))
 
@@ -71,10 +72,6 @@ def playMotion(motion_json):
 
 
 if __name__ == '__main__':
-#    print sys.getdefaultencoding()
-    importlib.reload(sys)
-#    sys.setdefaultencoding('utf8')
-#    print sys.getdefaultencoding()
     try:
         rospy.init_node('mocca_motion_play_by_filename')
 
