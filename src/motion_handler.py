@@ -9,6 +9,7 @@ import rospkg
 import os
 import json
 import sys
+import importlib
 
 rospack = rospkg.RosPack()
 
@@ -70,10 +71,10 @@ def playMotion(motion_json):
 
 
 if __name__ == '__main__':
-    print sys.getdefaultencoding()
-    reload(sys)
-    sys.setdefaultencoding('utf8')
-    print sys.getdefaultencoding()
+#    print sys.getdefaultencoding()
+    importlib.reload(sys)
+#    sys.setdefaultencoding('utf8')
+#    print sys.getdefaultencoding()
     try:
         rospy.init_node('mocca_motion_play_by_filename')
 

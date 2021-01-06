@@ -192,7 +192,7 @@ class MoccaRobot(Thread):
             targetAngle = pose.data[i]
             presentAngle = self.dxlPosToDeg(self.presentPosition[i])
             moveToAngle = math.fabs(targetAngle - presentAngle)
-            if eta is not 0:
+            if eta != 0:
                 self.movingSpeed[i] = int(moveToAngle / eta * 60 / 60)
             else:
                 self.movingSpeed[i] = 0
@@ -309,9 +309,9 @@ class MoccaRobot(Thread):
         self._run = True
         while self._run:
 
-            if self.mobilityCalledTime != None:
-                if (time.time() - self.mobilityCalledTime) > 2:
-                    self.mobilityMove(0, 0)
+            #if self.mobilityCalledTime != None:
+            #    if (time.time() - self.mobilityCalledTime) > 2:
+            #        self.mobilityMove(0, 0)
             # for i in range(len(self.goalPosition)):
             #     self.goalPosition[i] = goal
             # self.dxl1GoalPositions(self.goalPosition)
