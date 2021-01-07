@@ -18,7 +18,7 @@
    Speed: 1Mbps  
    ID11, 12, 13: Left Arm  
    ID21, 22, 23: Right Arm  
-   ID21, 32: Neck  
+   ID31, 32: Neck  
 
 ### Interface
 - [U2D2](https://www.robotis.com/shop/item.php?it_id=902-0132-000)
