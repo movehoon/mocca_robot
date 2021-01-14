@@ -188,20 +188,22 @@ class MoccaRobot(Thread):
         rospy.loginfo("goalFrame to %s %d(%f)", str(pose.data), pose.layout.data_offset, eta)
 
         # calculate moving speed
+        self.updatePresentPosition()
         for i in range(len(pose.data)):
-            targetAngle = pose.data[i]
-            presentAngle = self.dxlPosToDeg(self.presentPosition[i])
+            targetAngle = pose.data[i] * self.DXL_DR[i]
+            presentAngle = self.presentPosition[i]
             moveToAngle = math.fabs(targetAngle - presentAngle)
             if eta != 0:
-                self.movingSpeed[i] = int(moveToAngle / eta * 60 / 60)
+                self.movingSpeed[i] = int(moveToAngle / eta) * 2
             else:
                 self.movingSpeed[i] = 0
+            self.movingSpeed[i] = min(max(0, self.movingSpeed[i]), 1023)
             # rospy.loginfo("[%d]%f %f = %f => (%d)", i, targetAngle, presentAngle, moveToAngle, self.movingSpeed[i])
 
         self.dxl1MovingSpeed(self.movingSpeed)
         for i in range(len(pose.data)):
             self.goalPosition[i] = self.dxlDegToPos(pose.data[i] * self.DXL_DR[i])
-        rospy.loginfo("goalPosition to %s", str(self.goalPosition))
+        # rospy.loginfo("goalPosition to %s", str(self.goalPositiosn))
         self.dxl1GoalPositions(self.goalPosition)
 
 
@@ -223,6 +225,7 @@ class MoccaRobot(Thread):
         elif dxl_error != 0:
             rospy.loginfo("[ID:%d]%s", dxl_id,self.packetHandler1.getRxPacketError(dxl_error))
         self.dxl_in_use = False
+        # rospy.loginfo("presentPosition %d is %d", dxl_id, dxl_present_position)
         return dxl_present_position
 
     def updatePresentPosition(self):
@@ -315,10 +318,10 @@ class MoccaRobot(Thread):
             # for i in range(len(self.goalPosition)):
             #     self.goalPosition[i] = goal
             # self.dxl1GoalPositions(self.goalPosition)
-            self.updatePresentPosition()
+            # self.updatePresentPosition()
 #            rospy.loginfo('pre: ' + ' '.join(map(str, self.presentPosition)))
 
-            rospy.sleep(0.01)
+            rospy.sleep(0.05)
         self.mobilityMove(0, 0)
         rospy.loginfo('stopped')
 
