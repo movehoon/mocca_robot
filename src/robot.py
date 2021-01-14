@@ -318,7 +318,7 @@ class MoccaRobot(Thread):
             # for i in range(len(self.goalPosition)):
             #     self.goalPosition[i] = goal
             # self.dxl1GoalPositions(self.goalPosition)
-            # self.updatePresentPosition()
+            self.updatePresentPosition()
 #            rospy.loginfo('pre: ' + ' '.join(map(str, self.presentPosition)))
 
             rospy.sleep(0.05)
