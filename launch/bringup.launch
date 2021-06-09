@@ -8,5 +8,6 @@
  -->
     <node name="mocca_robot" pkg="mocca_robot" type="robot.py" output="screen"/>
     <node name="mocca_motion" pkg="mocca_robot" type="motion.py" output="screen"/>
+    <node name="motion_handler" pkg="mocca_robot" type="motion_handler.py" output="screen"/>
 </launch>
 
