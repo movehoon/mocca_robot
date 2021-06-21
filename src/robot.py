@@ -312,9 +312,9 @@ class MoccaRobot(Thread):
         self._run = True
         while self._run:
 
-            #if self.mobilityCalledTime != None:
-            #    if (time.time() - self.mobilityCalledTime) > 2:
-            #        self.mobilityMove(0, 0)
+        if self.mobilityCalledTime != None:
+            if (time.time() - self.mobilityCalledTime) > 2:
+                self.mobilityMove(0, 0)
             # for i in range(len(self.goalPosition)):
             #     self.goalPosition[i] = goal
             # self.dxl1GoalPositions(self.goalPosition)
