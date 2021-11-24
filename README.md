@@ -1,4 +1,5 @@
 # mocca_robot
+![Robot](docs/mocca_robot.png)
 
 ## Hardware
 
