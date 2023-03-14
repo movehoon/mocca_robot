@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import rospy
@@ -11,7 +11,7 @@ class MoccaTeleop(Thread):
     def __init__(self):
         Thread.__init__(self)
         self.vel_pub = rospy.Publisher('cmd_vel', Twist, queue_size=1)
-        self.joy_sub = rospy.Subscriber('joy', Joy, joyCallback, 10)
+        self.joy_sub = rospy.Subscriber('joy', Joy, self.joyCallback, 10)
 
         rospy.loginfo("Mocca robot initialized")
 
@@ -28,9 +28,10 @@ class MoccaTeleop(Thread):
         self._run = False
 
     def publish(self):
+        pass
 
     def joyCallback(self, joy):
-        Twist vel
+        vel = Twist()
         vel.angular.z = joy.axes[0]
 
 
@@ -38,7 +39,7 @@ if __name__ == '__main__':
     try:
         rospy.init_node('mocca_teleop')
 
-        server = MoccaRobot()
+        server = MoccaTeleop()
         server.start()
         while not rospy.is_shutdown():
             rospy.sleep(0.05)
