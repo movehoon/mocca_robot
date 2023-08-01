@@ -61,7 +61,7 @@ def playMotionName(motion_name):
 
 def playMotion(motion_json):
     rospy.loginfo('playMotion ' + motion_json.data)
-    loaded_json = json.loads(motion_json.data)
+    loaded_json = json.loads(motion_json.data.encode().decode('unicode-escape')
     for x in loaded_json:
         # rospy.loginfo('playMotion %s %s', x, loaded_json[x])
         if x == 'name':
